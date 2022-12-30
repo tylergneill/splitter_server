@@ -14,9 +14,12 @@ import configuration, helper_functions, data_loader
 
 config = configuration.config
 
-print("os.getcwd():", os.getcwd())
-path_in = os.path.join(os.getcwd(), 'data/input/buffer_in.txt')
-path_out = os.path.join(os.getcwd(), 'data/output/buffer_out.txt')
+splitter_app_path = os.path.abspath(os.path.dirname(__file__))
+print("splitter_app_path:", splitter_app_path)
+dir_in = os.path.join(splitter_app_path, 'data/input/')
+dir_out = os.path.join(splitter_app_path, 'data/output/')
+path_in = os.path.join(dir_in, 'buffer_in.txt')
+path_out = os.path.join(dir_out, 'buffer_out.txt')
 print("path_in:", path_in)
 
 class Splitter:
@@ -24,7 +27,7 @@ class Splitter:
     def __init__(self):
 
         try:
-            self.data = data_loader.DataLoader('data/input', config, load_data_into_ram=False, load_data = False)
+            self.data = data_loader.DataLoader(dir_in, config, load_data_into_ram=False, load_data = False)
         except:
             print("couldn't load data")
 
