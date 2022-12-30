@@ -14,12 +14,10 @@ import configuration, helper_functions, data_loader
 config = configuration.config
 
 splitter_app_path = os.path.abspath(os.path.dirname(__file__))
-print("splitter_app_path:", splitter_app_path)
 dir_in = os.path.join(splitter_app_path, 'data/input/')
 dir_out = os.path.join(splitter_app_path, 'data/output/')
 path_in = os.path.join(dir_in, 'buffer_in.txt')
 path_out = os.path.join(dir_out, 'buffer_out.txt')
-print("path_in:", path_in)
 
 class Splitter:
 
@@ -92,9 +90,6 @@ def index():
         with open(path_in, 'w') as buffer_in:
             buffer_in.write(input_text)
         S = Splitter()
-        print("trying analyze() (in flask_app)")
         S.analyze()
-        print("completed analyze() (in flask_app)")
-        print("trying to open path_out again for reading (in flask_app)")
         with open(path_out, 'r') as buffer_out:
             return buffer_out.read()
