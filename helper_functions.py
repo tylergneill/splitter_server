@@ -177,6 +177,15 @@ def analyze_text(path_in, path_out, predictions_ph, x_ph, split_cnts_ph, seqlen_
 
                 sys.stdout.write('processing lines {0}–{1}...\r'.format(start,end) ); sys.stdout.flush();
             print("trying session.run()")
+            print("all the values:")
+            print("predictions_ph:", predictions_ph)
+            print("x_ph:", x_ph)
+            print("seqs[start:end,:]:", seqs[start:end,:])
+            print("split_cnts_ph:", split_cnts_ph)
+            print("splitcnts[start:end,:,:]:", splitcnts[start:end,:,:])
+            print("seqlen_ph:", seqlen_ph)
+            print("lens[start:end]:", lens[start:end])
+            print("dropout_ph:", dropout_ph, 1.0)
             p = session.run(predictions_ph, feed_dict = {
                 x_ph:seqs[start:end,:],
                 split_cnts_ph:splitcnts[start:end,:,:],
