@@ -38,7 +38,7 @@ class Splitter:
             print("couldn't do graph_pred.as_default()")
 
         try:
-            self.sess = tf.Session(graph=graph_pred, config=tf.ConfigProto(use_per_session_threads=True))
+            self.sess = tf.compat.v1.Session(graph=graph_pred)
         except:
             print("couldn't get tensorflow session")
 
