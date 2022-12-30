@@ -75,11 +75,21 @@ def index():
     if request.method == "GET":
         return "POST requests only please (and don't forget to use input in valid IAST)"
     elif request.method == "POST":
-        data = request.get_json()
-        try:
-            input_text = data["input_text"]
-        except:
-            print("couldn't find input_text parameter")
+        import pdb; pdb.set_trace()
+        if request.json:
+            data = request.get_json()
+            try:
+                input_text = data["input_text"]
+            except:
+                print("couldn't get input_text from json data['input_text']")
+        elif request.files:
+            try:
+                input_file = request.files["input_file"]
+                input_fn = input_file.filename
+                input_text = input_file.stream.read().decode('utf-8')
+            except:
+                print("couldn't get input_text from request.files['input_file']")
+
         with open(path_in, 'w') as buffer_in:
             buffer_in.write(input_text)
         S = Splitter()
