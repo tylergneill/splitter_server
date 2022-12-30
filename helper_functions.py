@@ -147,22 +147,24 @@ def sandhi_validation(model, is_validation, data, sess, data_directory, config):
     return res
 
 
-def analyze_text(path_in, path_out, predictions_ph, x_ph, split_cnts_ph, seqlen_ph, dropout_ph, loader, session, verbose = False):
+def analyze_text(path_in, path_out, predictions_ph, x_ph, split_cnts_ph, seqlen_ph, dropout_ph, loader, session, verbose = True):
     '''
     Apply a trained model to a text.
 
     The xxx_ph parameters are the placeholders that are fed + the prediction.
     Required to make the function compatible with train and application settings.
     '''
-    # if verbose==True:
-        # print('preparing to segment file {0} ...'.format(path_in) )
+    if verbose==True:
+        print('preparing to segment file {0} ...'.format(path_in) )
     seqs,lens,splitcnts,lines_orig = loader.load_external_text(path_in)
     if seqs is None:
-        # print('Something went wrong while loading {0}'.format(path_in) )
+        print('Something went wrong while loading {0}'.format(path_in) )
         return
     elif verbose==True:
         print('total lines {0} ...'.format(seqs.shape[0]) )
+    print("about to open path_out file")
     with codecs.open(path_out, 'w', 'UTF-8') as f:
+        print("opened path_out file")
         batch_size = 500
         start = 0
         P = None
@@ -173,12 +175,14 @@ def analyze_text(path_in, path_out, predictions_ph, x_ph, split_cnts_ph, seqlen_
             if verbose==True:
 
                 sys.stdout.write('processing lines {0}–{1}...\r'.format(start,end) ); sys.stdout.flush();
+            print("trying session.run()")
             p = session.run(predictions_ph, feed_dict = {
                 x_ph:seqs[start:end,:],
                 split_cnts_ph:splitcnts[start:end,:,:],
                 seqlen_ph:lens[start:end],
                 dropout_ph:1.0
                 })
+            print("completed session.run()")
             if P is None:
                 P = p
             else:
@@ -187,9 +191,13 @@ def analyze_text(path_in, path_out, predictions_ph, x_ph, split_cnts_ph, seqlen_
         if verbose==True:
             print('')
         ''' decode and write to the file '''
+        print("about to enter for-loop")
         for i in range(P.shape[0]):
+            print("trying loader.deenc_output.get_sym(x) for x in ...")
             pred_sym_seq = [loader.deenc_output.get_sym(x) for x in P[i, :lens[i] ] ] # skip the last symbol
+            print("completed loader.deenc_output.get_sym(x) for x in ...")
             pred_str = ''
+            print("about to enter nested for-loop")
             for p_s, o_s in zip(pred_sym_seq[1:], lines_orig[i][1:] ):
                 if p_s==defines.SYM_IDENT:
                     pred_str+=o_s
@@ -197,7 +205,11 @@ def analyze_text(path_in, path_out, predictions_ph, x_ph, split_cnts_ph, seqlen_
                     pred_str+=o_s + '-'
                 else:
                     pred_str+=p_s
+            print("trying loader.internal_transliteration_to_unicode()")
             pred_str = loader.internal_transliteration_to_unicode(pred_str).replace('- ', ' ').replace('= ', ' ')
+            print("completed loader.internal_transliteration_to_unicode()")
+            print("trying f.write()")
             f.write(pred_str + '\n')
-        # if verbose==True:
-        #     print('segmentation results written to {0}'.format(path_out) )
+            print("completed f.write()")
+        if verbose==True:
+            print('segmentation results written to {0}'.format(path_out) )
