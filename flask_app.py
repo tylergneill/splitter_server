@@ -75,7 +75,6 @@ def index():
     if request.method == "GET":
         return "POST requests only please (and don't forget to use input in valid IAST)"
     elif request.method == "POST":
-        import pdb; pdb.set_trace()
         if request.json:
             data = request.get_json()
             try:
