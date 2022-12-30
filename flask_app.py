@@ -3,7 +3,8 @@ app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config["SECRET_KEY"] = "asdlkvumnxlapoiqyernxnfjtuzimzjdhryien" # for session, no actual need for secrecy
 
-import sys,os
+import pathlib
+import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import tensorflow as tf
@@ -13,8 +14,10 @@ import configuration, helper_functions, data_loader
 
 config = configuration.config
 
-path_in = os.path.join(os.getcwd(), 'data/input', 'buffer_in.txt')
-path_out = os.path.join(os.getcwd(), 'data/output', 'buffer_out.txt')
+splitter_app_path = os.path.abspath(os.path.dirname(__file__))
+path_in = os.path.join(splitter_app_path, 'data/input/buffer_in.txt')
+path_out = os.path.join(splitter_app_path, 'data/output/buffer_out.txt')
+
 
 class Splitter:
 
