@@ -43,7 +43,7 @@ class Splitter:
         except:
             print("couldn't get tensorflow session")
 
-        model_dir = model_dir = os.path.normpath( os.path.join(os.getcwd(), config['model_directory']) )
+        model_dir = os.path.normpath( os.path.join(splitter_app_path, config['model_directory']) )
         tf.saved_model.loader.load(
             self.sess,
             [tf.saved_model.tag_constants.SERVING],
