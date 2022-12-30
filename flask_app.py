@@ -85,9 +85,9 @@ def index():
             print("couldn't find input_text parameter")
         with open(path_in, 'w') as buffer_in:
             buffer_in.write(input_text)
-		print("trying analyze() (in flask_app)")
+        print("trying analyze() (in flask_app)")
         S.analyze()
-		print("completed analyze() (in flask_app)")
-		print("trying to open path_out again for reading (in flask_app)")
+        print("completed analyze() (in flask_app)")
+        print("trying to open path_out again for reading (in flask_app)")
         with open(path_out, 'r') as buffer_out:
             return buffer_out.read()
