@@ -70,8 +70,6 @@ class Splitter:
             verbose=True
         )
 
-S = Splitter()
-
 @app.route("/", methods=["POST"])
 def index():
     if request.method == "GET":
@@ -84,6 +82,7 @@ def index():
             print("couldn't find input_text parameter")
         with open(path_in, 'w') as buffer_in:
             buffer_in.write(input_text)
+        S = Splitter()
         print("trying analyze() (in flask_app)")
         S.analyze()
         print("completed analyze() (in flask_app)")
