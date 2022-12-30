@@ -14,10 +14,9 @@ import configuration, helper_functions, data_loader
 
 config = configuration.config
 
-splitter_app_path = os.path.abspath(os.path.dirname(__file__))
-print("splitter_app_path:", splitter_app_path)
-path_in = os.path.join(splitter_app_path, 'data/input/buffer_in.txt')
-path_out = os.path.join(splitter_app_path, 'data/output/buffer_out.txt')
+print("os.getcwd():", os.getcwd())
+path_in = os.path.join(os.getcwd(), 'data/input/buffer_in.txt')
+path_out = os.path.join(os.getcwd(), 'data/output/buffer_out.txt')
 print("path_in:", path_in)
 
 class Splitter:
