@@ -162,6 +162,7 @@ def analyze_text(path_in, path_out, predictions_ph, x_ph, split_cnts_ph, seqlen_
         return
     elif verbose==True:
         print('total lines {0} ...'.format(seqs.shape[0]) )
+    print("input found:",seqs,lens,splitcnts,lines_orig)
     print("about to open path_out file")
     with codecs.open(path_out, 'w', 'UTF-8') as f:
         print("opened path_out file")
