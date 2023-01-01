@@ -1,0 +1,21 @@
+<h1>splitter_server</h1>
+
+<p>This is a simple server that maintains a running instance of the <a href="https://github.com/OliverHellwig/sanskrit/tree/master/papers/2018emnlp">Sanskrit Sandhi and Compound Splitter</a>. Basically, it embeds <a href="https://github.com/OliverHellwig/sanskrit/blob/master/papers/2018emnlp/code/apply.py">this key file</a> as a class in a super-simple Flask API with one endpoint. The endpoint (the same SERVER_URL you're looking at now: <b>https://splitter-server-tylergneill.pythonanywhere.com/</b>) accepts POST requests with either string or file inputs. With cURL:</p>
+
+<p><b>curl SERVER_URL -d '{"input_text":"rājapuruṣaḥ"}' -H 'Content-Type: application/json'</b></p>
+
+<p>or</p>
+
+<p><b>curl  -F "input_file=@/path/to/local/file</b></p>
+
+<p>Or with Python code:</p>
+
+<p><b>import requests; result = requests.post(SERVER_URL, json={'input_text': your_input_text})</b></p>
+
+<p>or</p>
+
+<p><b>import requests; result = requests.post(SERVER_URL, files={"input_file": open(your_input_filename, 'rb')})</b></p>
+
+<p>Or you can use any other technology to make POST requests that you prefer.</p>
+
+<p>Don't forget that input must already be in valid IAST. For this, you can use <a href="https://www.skrutable.info">skrutable</a> or any other such tool.</p>

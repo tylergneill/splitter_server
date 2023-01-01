@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for, session, send_from_directory, send_file, make_response
+from flask import Flask, render_template, request
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config["SECRET_KEY"] = "asdlkvumnxlapoiqyernxnfjtuzimzjdhryien" # for session, no actual need for secrecy
@@ -68,10 +68,10 @@ class Splitter:
             verbose=True
         )
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return "POST requests only please (and don't forget to use input in valid IAST)"
+        return render_template("index.html")
     elif request.method == "POST":
         if request.json:
             data = request.get_json()
