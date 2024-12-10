@@ -59,3 +59,6 @@ venv*/
 
 # repo integration
 static/data/text_data
+
+# tensorflow wheel
+tensorflow-*
