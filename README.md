@@ -1,4 +1,4 @@
 # splitter_server
-server for Sanskrit Sandhi and Compound Splitter, deployed on PythonAnywhere
+server for Sanskrit Sandhi and Compound Splitter, deployed on Digital Ocean
 
-see [here](https://splitter-server-tylergneill.pythonanywhere.com/) for more info
+see [here](https://2018emnlp-sanskrit-splitter-server.dharma.cl/) for more info
