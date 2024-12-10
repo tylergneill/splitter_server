@@ -1,0 +1,7 @@
+# use Python 3.5 locally (e.g. using pyenv)
+# to get past the pip v9.0.1 / SSL bottleneck locally on macOS, bootstrap with https://bootstrap.pypa.io/pip/3.5/get-pip.py
+# for tensorflow and its dependencies, use wheel tensorflow-1.15.0-cp35-cp35m-manylinux2010_x86_64.whl from https://pypi.org/project/tensorflow/1.15.0/#files
+# pip-compile remaining:
+Flask<2.0
+gunicorn<20
+Werkzeug<2.0
