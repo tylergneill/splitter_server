@@ -54,5 +54,8 @@ venv*/
 # macOS
 .DS_Store
 
+# pyenv
+.python-version
+
 # repo integration
 static/data/text_data
