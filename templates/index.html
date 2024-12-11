@@ -1,23 +1,55 @@
-<h1>splitter_server</h1>
+<h1>2018 EMNLP Sanskrit Splitter Server API</h1>
 
-<p>This is a simple server that maintains a running instance of the <a href="https://github.com/OliverHellwig/sanskrit/tree/master/papers/2018emnlp">Sanskrit Sandhi and Compound Splitter</a>. Basically, it embeds <a href="https://github.com/OliverHellwig/sanskrit/blob/master/papers/2018emnlp/code/apply.py">this key file</a> as a class in a super-simple Flask API with one endpoint. The endpoint (the same SERVER_URL you're looking at now: <b>https://splitter-server-tylergneill.pythonanywhere.com/</b>) accepts POST requests with either string or file inputs. With cURL:</p>
+<p>
+    This is a simple server that maintains a running instance of the
+    <a href="https://github.com/OliverHellwig/sanskrit/tree/master/papers/2018emnlp">Sanskrit Sandhi and Compound Splitter</a>.
+    It has one endpoint (<code>/api/split/</code>) which directly queries the model.
+    Input must already be in valid IAST.
+    See <a href="/docs">Swagger Doc</a> for official API documentation.
+    If you have been redirected here from
+    <a href="https://splitter-server-tylergneill.pythonanywhere.com">the old PythonAnywhere page</a>,
+    please update your bookmark.
+</p>
 
-<p><b>curl SERVER_URL -d '{"input_text":"rājapuruṣaḥ"}' -H 'Content-Type: application/json'</b></p>
+<p>
+    <strong>Example with <code>curl</code> and <code>jq</code>:</strong>
+</p>
+<pre><code>
+curl -X POST https://2018emnlp-sanskrit-splitter-server.dharma.cl/api/split/ \
+-H "Content-Type: application/json" \
+-d '{"input_text": "tava karakamalasthāṃ sphāṭikīmakṣamālāṃ , nakhakiraṇavibhinnāṃ dāḍimībījabuddhyā |"}' | jq
+</code></pre>
 
-<p>or</p>
+<p>
+    <strong>Example with <code>Python</code>:</strong>
+</p>
+<pre><code>
+python3 -c "import requests, json; url='https://2018emnlp-sanskrit-splitter-server.dharma.cl/api/split/'; payload={'input_text': 'tava karakamalasthāṃ sphāṭikīmakṣamālāṃ , nakhakiraṇavibhinnāṃ dāḍimībījabuddhyā |'}; response=requests.post(url, json=payload); print(json.dumps(response.json(), indent=4, ensure_ascii=False)) if response.status_code == 200 else print(f'Error: {response.status_code}, {response.text}')"
+</code></pre>
 
-<p><b>curl  -F "input_file=@/path/to/local/file</b></p>
+<h2>Caveats</h2>
 
-<p>Or with Python code:</p>
+<p>
+    The primary purpose of this server is to serve as a backend for Skrutable.
+</p>
 
-<p><b>import requests; result = requests.post(SERVER_URL, json={'input_text': your_input_text})</b></p>
+<p>
+    <strong>Limitations of the 2018 EMNLP model:</strong>
+    <ul>
+        <li>This model truncates input at 128 characters and does not preserve all punctuation.</li>
+        <li>For enhanced word-splitting capabilities, including length and punctuation preservation,
+            consider using <a href="https://www.skrutable.info">Skrutable</a>.</li>
+    </ul>
+    <strong>Default Model in Skrutable:</strong>
+    <ul>
+        <li>Skrutable's default splitter is the 2024 ByT5-Sanskrit model, developed by Dharmamitra.</li>
+        <li>To use the 2018 EMNLP model, explicitly select it on Skrutable's settings page.</li>
+    </ul>
+    <strong>Additional Resources:</strong>
+    <ul>
+        <li>For more information about splitter model options, refer to
+            <a href="https://www.tylerneill.info/blog-kalpataru-diaries/splitter-options">this blog post</a>.
+        </li>
+    </ul>
+</p>
 
-<p>or</p>
-
-<p><b>import requests; result = requests.post(SERVER_URL, files={"input_file": open(your_input_filename, 'rb')})</b></p>
-
-<p>Or you can use any other technology to make POST requests that you prefer.</p>
-
-<p>Don't forget that input must already be in valid IAST. For this, you can use <a href="https://www.skrutable.info">skrutable</a> or any other such tool.</p>
-
-<p>(If you have been redirected here from <a href="https://splitter-server-tylergneill.pythonanywhere.com">the old PythonAnywhere page</a>, please update your bookmark.)</p>
