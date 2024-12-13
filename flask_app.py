@@ -21,7 +21,12 @@ def home():
 api = Api(
     app,
     title="2018 EMNLP Sanskrit Splitter Server API",
-    description="API for inference against 2018 EMNLP Sanskrit Splitter model",
+    description=(
+        "API for inference against 2018 EMNLP Sanskrit Splitter model.\n\n"
+        "**Hostname**: `2018emnlp-sanskrit-splitter-server.dharma.cl`\n"
+        "**Public Access**: Yes, this API is open to the public.\n"
+        "**Documentation**: This Swagger UI serves as the official documentation for the API."
+    ),
     doc="/docs",  # Swagger UI available at /docs
 )
 
