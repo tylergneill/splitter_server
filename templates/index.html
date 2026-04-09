@@ -15,7 +15,7 @@
     <strong>Example with <code>curl</code> and <code>jq</code>:</strong>
 </p>
 <pre><code>
-curl -X POST https://2018emnlp-sanskrit-splitter-server.dharma.cl/api/split/ \
+curl -X POST https://2018emnlp-sanskrit-splitter-server.duckdns.org/api/split/ \
 -H "Content-Type: application/json" \
 -d '{"input_text": "tava karakamalasthāṃ sphāṭikīmakṣamālāṃ , nakhakiraṇavibhinnāṃ dāḍimībījabuddhyā |"}' | jq
 </code></pre>
@@ -24,7 +24,7 @@ curl -X POST https://2018emnlp-sanskrit-splitter-server.dharma.cl/api/split/ \
     <strong>Example with <code>Python</code>:</strong>
 </p>
 <pre><code>
-python3 -c "import requests, json; url='https://2018emnlp-sanskrit-splitter-server.dharma.cl/api/split/'; payload={'input_text': 'tava karakamalasthāṃ sphāṭikīmakṣamālāṃ , nakhakiraṇavibhinnāṃ dāḍimībījabuddhyā |'}; response=requests.post(url, json=payload); print(json.dumps(response.json(), indent=4, ensure_ascii=False)) if response.status_code == 200 else print(f'Error: {response.status_code}, {response.text}')"
+python3 -c "import requests, json; url='https://2018emnlp-sanskrit-splitter-server.duckdns.org/api/split/'; payload={'input_text': 'tava karakamalasthāṃ sphāṭikīmakṣamālāṃ , nakhakiraṇavibhinnāṃ dāḍimībījabuddhyā |'}; response=requests.post(url, json=payload); print(json.dumps(response.json(), indent=4, ensure_ascii=False)) if response.status_code == 200 else print(f'Error: {response.status_code}, {response.text}')"
 </code></pre>
 
 <h2>Caveats</h2>
