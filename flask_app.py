@@ -23,7 +23,7 @@ api = Api(
     title="2018 EMNLP Sanskrit Splitter Server API",
     description=(
         "API for inference against 2018 EMNLP Sanskrit Splitter model.\n\n"
-        "**Hostname**: `2018emnlp-sanskrit-splitter-server.dharma.cl`\n"
+        "**Hostname**: `2018emnlp-sanskrit-splitter-server.duckdns.org`\n"
         "**Public Access**: Yes, this API is open to the public.\n"
         "**Documentation**: This Swagger UI serves as the official documentation for the API."
     ),
