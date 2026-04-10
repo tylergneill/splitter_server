@@ -1,5 +1,11 @@
 FROM python:3.5-slim
 WORKDIR /app
+
+# Switch to archived repositories since Debian 9 is EOL
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
+    sed -i 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' /etc/apt/sources.list && \
+    sed -i '/stretch-updates/d' /etc/apt/sources.list
+
 RUN apt-get update && apt-get install -y \
     build-essential \
     libhdf5-dev \
